@@ -14,7 +14,8 @@
     --border: rgba(255,255,255,0.07);
     --mint: #00e5a0;
     --mint-dim: rgba(0,229,160,0.12);
-    --amber: #f5a623;
+    --red: #ef5350;
+    --red-dim: rgba(239,83,80,0.1);
     --text: #e8edf2;
     --text-dim: #7a8a96;
     --text-muted: #3d4f5c;
@@ -25,6 +26,7 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
 
+  /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
@@ -38,9 +40,9 @@
   .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover, .nav-links a.active { color: var(--mint); }
-  .nav-cta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--mint); border: none; padding: 10px 22px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
-  .nav-cta:hover { opacity: 0.85; }
+  .nav-cta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--mint); border: none; padding: 10px 22px; cursor: pointer; text-decoration: none; }
 
+  /* ── PAGE HERO ── */
   .page-hero {
     padding: 140px 48px 80px;
     border-bottom: 1px solid var(--border);
@@ -56,49 +58,143 @@
   .page-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--mint); }
   .page-title { font-family: var(--font-display); font-size: clamp(48px, 7vw, 96px); letter-spacing: 2px; line-height: 0.92; }
   .page-title .dim { color: var(--text-muted); }
+  .page-subtitle { font-size: 15px; color: var(--text-dim); margin-top: 24px; max-width: 560px; line-height: 1.7; }
 
-  .section { padding: 80px 48px; }
-  .section + .section { border-top: 1px solid var(--border); }
-
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
-  .col-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 20px; }
-  .col-title { font-family: var(--font-display); font-size: clamp(28px, 3vw, 44px); letter-spacing: 2px; margin-bottom: 24px; line-height: 1; }
+  /* ── PUBLIC OVERVIEW (always visible) ── */
+  .public-section { padding: 80px 48px; border-bottom: 1px solid var(--border); }
+  .section-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 16px; }
+  .section-title { font-family: var(--font-display); font-size: clamp(28px, 3vw, 44px); letter-spacing: 2px; margin-bottom: 24px; line-height: 1; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
   .col-body { font-size: 15px; line-height: 1.8; color: var(--text-dim); }
-  .col-body p + p { margin-top: 16px; }
+  .col-body p + p { margin-top: 14px; }
 
-  .signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 40px; }
-  .signal-card { background: var(--bg2); padding: 28px; }
-  .signal-name { font-family: var(--font-mono); font-size: 13px; color: var(--mint); letter-spacing: 1px; margin-bottom: 8px; }
-  .signal-role { font-family: var(--font-display); font-size: 18px; letter-spacing: 1px; margin-bottom: 10px; }
-  .signal-desc { font-size: 13px; line-height: 1.6; color: var(--text-dim); }
+  .instruments { display: flex; gap: 1px; background: var(--border); margin-top: 32px; }
+  .instrument-card { background: var(--bg2); padding: 28px 32px; flex: 1; }
+  .inst-ticker { font-family: var(--font-mono); font-size: 18px; color: var(--mint); letter-spacing: 2px; margin-bottom: 6px; }
+  .inst-name { font-family: var(--font-display); font-size: 18px; letter-spacing: 1px; margin-bottom: 8px; }
+  .inst-role { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
 
-  .timeline { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); }
-  .tl-item { display: flex; gap: 0; border-bottom: 1px solid var(--border); }
-  .tl-item:last-child { border-bottom: none; }
-  .tl-time { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--mint); background: var(--bg2); padding: 24px 28px; min-width: 140px; display: flex; align-items: center; border-right: 1px solid var(--border); }
-  .tl-content { padding: 24px 32px; }
-  .tl-title { font-family: var(--font-display); font-size: 18px; letter-spacing: 1px; margin-bottom: 8px; }
-  .tl-desc { font-size: 13px; line-height: 1.6; color: var(--text-dim); }
-
-  .risk-table { width: 100%; border-collapse: collapse; margin-top: 32px; }
-  .risk-table th { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-align: left; padding: 14px 20px; border-bottom: 1px solid var(--border); }
-  .risk-table td { padding: 16px 20px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-dim); }
-  .risk-table td:first-child { color: var(--text); font-weight: 400; }
-  .risk-table tr:last-child td { border-bottom: none; }
-  .risk-table tr:hover td { background: var(--bg2); }
-  .pill { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; padding: 4px 10px; background: var(--mint-dim); color: var(--mint); }
-
-  .disclaimer {
-    padding: 32px 48px;
-    border-top: 1px solid var(--border);
+  /* ── PIN GATE ── */
+  .pin-gate-section {
+    padding: 80px 48px;
+    border-bottom: 1px solid var(--border);
     background: var(--bg2);
-    font-family: var(--font-mono);
-    font-size: 10px;
-    line-height: 1.7;
-    color: var(--text-muted);
-    letter-spacing: 0.5px;
+  }
+  .pin-gate-header {
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 24px; margin-bottom: 40px;
+  }
+  .pin-gate-title { font-family: var(--font-display); font-size: clamp(28px,3vw,44px); letter-spacing: 2px; line-height: 1; }
+  .pin-gate-title span { color: var(--mint); }
+  .access-badge {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+    border: 1px solid rgba(239,83,80,0.4); color: var(--red);
+    padding: 8px 16px; display: flex; align-items: center; gap: 8px;
+  }
+  .lock-icon { font-size: 12px; }
+
+  /* PIN ENTRY BOX */
+  .pin-entry-box {
+    border: 1px solid var(--border);
+    background: var(--bg);
+    padding: 48px;
+    max-width: 480px;
+  }
+  .pin-entry-label {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px;
+  }
+  .pin-entry-desc {
+    font-size: 14px; color: var(--text-dim); line-height: 1.6; margin-bottom: 32px;
+  }
+  .pin-dots {
+    display: flex; gap: 12px; margin-bottom: 28px;
+  }
+  .pin-dot {
+    width: 14px; height: 14px; border-radius: 50%;
+    border: 2px solid var(--text-muted);
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .pin-dot.filled { background: var(--mint); border-color: var(--mint); }
+
+  .pin-keypad {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
+    margin-bottom: 20px;
+  }
+  .pin-key {
+    font-family: var(--font-mono); font-size: 18px;
+    background: var(--bg2); border: 1px solid var(--border);
+    color: var(--text); padding: 18px;
+    cursor: pointer; text-align: center;
+    transition: background 0.15s, border-color 0.15s;
+    user-select: none;
+  }
+  .pin-key:hover { background: var(--bg3); border-color: rgba(255,255,255,0.15); }
+  .pin-key:active { background: var(--mint-dim); border-color: var(--mint); }
+  .pin-key.clear { color: var(--text-muted); font-size: 13px; letter-spacing: 1px; }
+  .pin-key.zero { grid-column: 2; }
+
+  .pin-error {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px;
+    color: var(--red); background: var(--red-dim);
+    border: 1px solid rgba(239,83,80,0.2);
+    padding: 12px 16px; display: none; margin-top: 4px;
+  }
+  .pin-error.show { display: block; }
+
+  /* REVEALED CONTENT */
+  .restricted-content { display: none; }
+  .restricted-content.unlocked { display: block; }
+
+  .unlock-banner {
+    background: var(--mint-dim);
+    border: 1px solid rgba(0,229,160,0.2);
+    padding: 16px 24px;
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 40px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px;
+    color: var(--mint);
+  }
+  .lock-out-btn {
+    margin-left: auto;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px;
+    color: var(--text-muted); background: none; border: 1px solid var(--border);
+    padding: 6px 14px; cursor: pointer; transition: color 0.2s;
+  }
+  .lock-out-btn:hover { color: var(--red); border-color: rgba(239,83,80,0.3); }
+
+  /* STRATEGY CONTENT STYLES */
+  .strat-section { margin-bottom: 56px; }
+  .strat-section-title {
+    font-family: var(--font-display); font-size: 26px; letter-spacing: 2px;
+    color: var(--text-muted); padding-bottom: 14px;
+    border-bottom: 1px solid var(--border); margin-bottom: 24px;
   }
 
+  .signal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); margin-top: 24px; }
+  .signal-card { background: var(--bg); padding: 24px; }
+  .signal-name { font-family: var(--font-mono); font-size: 13px; color: var(--mint); letter-spacing: 1px; margin-bottom: 6px; }
+  .signal-role { font-family: var(--font-display); font-size: 17px; letter-spacing: 1px; margin-bottom: 8px; }
+  .signal-desc { font-size: 13px; line-height: 1.6; color: var(--text-dim); }
+
+  .timeline { display: flex; flex-direction: column; border: 1px solid var(--border); margin-top: 24px; }
+  .tl-item { display: flex; border-bottom: 1px solid var(--border); }
+  .tl-item:last-child { border-bottom: none; }
+  .tl-time { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--mint); background: var(--bg); padding: 20px 24px; min-width: 130px; display: flex; align-items: center; border-right: 1px solid var(--border); }
+  .tl-content { padding: 20px 28px; }
+  .tl-title { font-family: var(--font-display); font-size: 17px; letter-spacing: 1px; margin-bottom: 6px; }
+  .tl-desc { font-size: 13px; line-height: 1.6; color: var(--text-dim); }
+
+  .risk-table { width: 100%; border-collapse: collapse; margin-top: 24px; }
+  .risk-table th { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+  .risk-table td { padding: 14px 16px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.04); color: var(--text-dim); }
+  .risk-table td:first-child { color: var(--text); }
+  .risk-table tr:last-child td { border-bottom: none; }
+  .risk-table tr:hover td { background: rgba(255,255,255,0.02); }
+  .pill { display: inline-block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; padding: 3px 8px; background: var(--mint-dim); color: var(--mint); }
+
+  /* ── FOOTER SECTIONS ── */
+  .disclaimer { padding: 28px 48px; border-top: 1px solid var(--border); background: var(--bg2); font-family: var(--font-mono); font-size: 10px; line-height: 1.7; color: var(--text-muted); letter-spacing: 0.5px; }
   footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; background: var(--bg); }
   .footer-logo { font-family: var(--font-display); font-size: 18px; letter-spacing: 3px; color: var(--text-muted); }
   .footer-logo span { color: var(--mint); }
@@ -107,11 +203,13 @@
   @media (max-width: 900px) {
     nav { padding: 0 24px; }
     .nav-links { display: none; }
-    .page-hero { padding: 100px 24px 60px; }
-    .section { padding: 60px 24px; }
-    .two-col { grid-template-columns: 1fr; gap: 40px; }
+    .page-hero, .public-section, .pin-gate-section { padding: 80px 24px 48px; }
+    .public-section, .pin-gate-section { padding: 48px 24px; }
+    .two-col { grid-template-columns: 1fr; gap: 32px; }
+    .instruments { flex-direction: column; }
     .signal-grid { grid-template-columns: 1fr; }
-    .tl-time { min-width: 100px; }
+    .pin-entry-box { padding: 32px 24px; }
+    .tl-time { min-width: 90px; font-size: 10px; }
     footer { flex-direction: column; gap: 12px; padding: 24px; }
     .disclaimer { padding: 24px; }
   }
@@ -130,155 +228,303 @@
   <a href="/mat8-site/performance.html" class="nav-cta">View Performance</a>
 </nav>
 
+<!-- PAGE HERO -->
 <div class="page-hero">
   <div class="page-hero-grid"></div>
   <div class="page-hero-content">
     <div class="page-tag">How It Works</div>
     <h1 class="page-title">THE MAT8<br><span class="dim">D-SERIES</span><br>STRATEGY</h1>
+    <p class="page-subtitle">A systematic momentum strategy trading US markets with proprietary signal architecture and multi-layer downside protection.</p>
   </div>
 </div>
 
-<!-- OVERVIEW -->
-<section class="section">
+<!-- ── PUBLIC OVERVIEW (visible to all) ── -->
+<section class="public-section">
   <div class="two-col">
     <div>
-      <div class="col-label">Overview</div>
-      <h2 class="col-title">MOMENTUM-DRIVEN. FEAR-AWARE.</h2>
+      <div class="section-tag">Overview</div>
+      <h2 class="section-title">MOMENTUM-DRIVEN.<br>FEAR-AWARE.</h2>
       <div class="col-body">
-        <p>MAT8 D-Series is a systematic momentum strategy trading TQQQ — the 3x leveraged Nasdaq-100 ETF — within a dual-tranche architecture that separates entry logic from exit logic.</p>
-        <p>The algorithm runs continuously on QuantConnect's cloud infrastructure, deploying orders directly to your Interactive Brokers account via the IBKR API. No human discretion. No emotional override.</p>
-        <p>The core insight: momentum in leveraged ETFs is real, but requires a robust fear-detection layer to avoid catastrophic drawdowns during volatility spikes.</p>
+        <p>MAT8 D-Series is a fully automated systematic strategy that trades US equity and commodity instruments using momentum signals combined with a proprietary volatility regime detection layer.</p>
+        <p>The algorithm runs continuously on QuantConnect's cloud infrastructure, deploying orders directly into your Interactive Brokers account. No human discretion. No emotional override.</p>
+        <p>At its core, the strategy seeks to capture momentum in high-beta instruments while dynamically detecting fear regimes and reducing exposure before drawdowns accelerate.</p>
       </div>
     </div>
     <div>
-      <div class="col-label">Signal Architecture</div>
+      <div class="section-tag">Trading Universe</div>
+      <div class="instruments">
+        <div class="instrument-card">
+          <div class="inst-ticker">TQQQ</div>
+          <div class="inst-name">Primary Instrument</div>
+          <div class="inst-role">3x leveraged Nasdaq-100 ETF. Core momentum vehicle. Position sizing and timing governed by proprietary signal system.</div>
+        </div>
+        <div class="instrument-card">
+          <div class="inst-ticker">GLD</div>
+          <div class="inst-name">Signal & Rotation</div>
+          <div class="inst-role">Gold ETF used as a signal and defensive rotation target. Strength in GLD informs risk regime and position management.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PIN GATE SECTION ── -->
+<section class="pin-gate-section">
+  <div class="pin-gate-header">
+    <div>
+      <div class="section-tag">Detailed Strategy Access</div>
+      <h2 class="pin-gate-title">APPROVED <span>CLIENTS ONLY</span></h2>
+    </div>
+    <div class="access-badge">
+      <span class="lock-icon">🔒</span>
+      RESTRICTED ACCESS
+    </div>
+  </div>
+
+  <!-- PIN ENTRY (shown when locked) -->
+  <div id="pin-entry-ui">
+    <div class="pin-entry-box">
+      <div class="pin-entry-label">Enter Access PIN</div>
+      <div class="pin-entry-desc">Full strategy details — including signal logic, execution flow, and risk controls — are available to approved clients only. Enter your PIN to continue.</div>
+      <div class="pin-dots" id="pin-dots">
+        <div class="pin-dot" id="dot0"></div>
+        <div class="pin-dot" id="dot1"></div>
+        <div class="pin-dot" id="dot2"></div>
+        <div class="pin-dot" id="dot3"></div>
+      </div>
+      <div class="pin-keypad">
+        <div class="pin-key" onclick="enterDigit('1')">1</div>
+        <div class="pin-key" onclick="enterDigit('2')">2</div>
+        <div class="pin-key" onclick="enterDigit('3')">3</div>
+        <div class="pin-key" onclick="enterDigit('4')">4</div>
+        <div class="pin-key" onclick="enterDigit('5')">5</div>
+        <div class="pin-key" onclick="enterDigit('6')">6</div>
+        <div class="pin-key" onclick="enterDigit('7')">7</div>
+        <div class="pin-key" onclick="enterDigit('8')">8</div>
+        <div class="pin-key" onclick="enterDigit('9')">9</div>
+        <div class="pin-key clear" onclick="clearPin()">CLR</div>
+        <div class="pin-key zero" onclick="enterDigit('0')">0</div>
+      </div>
+      <div class="pin-error" id="pin-error">Incorrect PIN. Please try again.</div>
+    </div>
+  </div>
+
+  <!-- RESTRICTED CONTENT (shown after correct PIN) -->
+  <div class="restricted-content" id="restricted-content">
+    <div class="unlock-banner">
+      ✓ &nbsp; STRATEGY DETAILS UNLOCKED
+      <button class="lock-out-btn" onclick="lockOut()">🔒 Lock</button>
+    </div>
+
+    <!-- SIGNAL ARCHITECTURE -->
+    <div class="strat-section">
+      <div class="strat-section-title">SIGNAL ARCHITECTURE</div>
       <div class="signal-grid">
         <div class="signal-card">
           <div class="signal-name">VIXY</div>
           <div class="signal-role">Fear Guard</div>
-          <div class="signal-desc">Multi-layer volatility detection. Overnight spike, 5-day structural elevation, and intraday deterioration exits.</div>
+          <div class="signal-desc">Multi-layer volatility detection. Overnight spike detection, 5-day structural elevation guard, and intraday deterioration exit at defined thresholds.</div>
         </div>
         <div class="signal-card">
           <div class="signal-name">GLD</div>
-          <div class="signal-role">Momentum Gate</div>
-          <div class="signal-desc">Gold strength signal confirms risk-on environment and gates T2 tranche entry and exit rotation.</div>
+          <div class="signal-role">Regime Signal</div>
+          <div class="signal-desc">Gold strength confirms or denies risk-on environment. Used as both an entry gate and a defensive rotation signal for TQQQ position management.</div>
         </div>
         <div class="signal-card">
           <div class="signal-name">TLT</div>
           <div class="signal-role">Rate Filter</div>
-          <div class="signal-desc">Treasury rate direction filter. Blocks entries during sustained rate-rising environments hostile to growth.</div>
+          <div class="signal-desc">Treasury rate direction filter. Blocks new entries during sustained rate-rising environments that are historically hostile to leveraged growth exposure.</div>
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- EXECUTION TIMELINE -->
-<section class="section" style="background: var(--bg2);">
-  <div class="col-label">Intraday Execution</div>
-  <h2 class="col-title" style="margin-bottom:32px;">WHAT HAPPENS<br>EACH TRADING DAY</h2>
-  <div class="timeline">
-    <div class="tl-item">
-      <div class="tl-time">PRE-OPEN</div>
-      <div class="tl-content">
-        <div class="tl-title">OVERNIGHT VIXY CHECK</div>
-        <div class="tl-desc">Algorithm checks if VIXY has spiked more than threshold overnight. If fear is elevated, existing positions may be exited before the open.</div>
+    <!-- INTRADAY EXECUTION -->
+    <div class="strat-section">
+      <div class="strat-section-title">INTRADAY EXECUTION FLOW</div>
+      <div class="timeline">
+        <div class="tl-item">
+          <div class="tl-time">PRE-OPEN</div>
+          <div class="tl-content">
+            <div class="tl-title">OVERNIGHT VIXY CHECK</div>
+            <div class="tl-desc">Algorithm evaluates VIXY overnight move. If fear threshold is exceeded, existing TQQQ positions are exited before market opens to avoid gap-down exposure.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">09:30–11:00</div>
+          <div class="tl-content">
+            <div class="tl-title">ENTRY WINDOW</div>
+            <div class="tl-desc">EMA and RSI momentum filters evaluated. TLT rate gate and GLD regime signal checked. If all conditions align, TQQQ position is entered.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">INTRADAY</div>
+          <div class="tl-content">
+            <div class="tl-title">CONTINUOUS MONITORING</div>
+            <div class="tl-desc">VIXY intraday deterioration exit active. GLD rotation signal monitored. Hard stop levels enforced continuously throughout the session.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">15:45</div>
+          <div class="tl-content">
+            <div class="tl-title">PRE-CLOSE VIXY CHECK</div>
+            <div class="tl-desc">Final VIXY check against absolute ceiling. Positions exited if overnight risk is deemed elevated — prevents adverse gap-down opens.</div>
+          </div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-time">16:00</div>
+          <div class="tl-content">
+            <div class="tl-title">CLOSE & PERSIST</div>
+            <div class="tl-desc">Algorithm state saved. Performance metrics updated. Daily sync pipeline writes updated data to the performance dashboard.</div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="tl-item">
-      <div class="tl-time">09:30–11:00</div>
-      <div class="tl-content">
-        <div class="tl-title">ENTRY WINDOW</div>
-        <div class="tl-desc">EMA and RSI momentum filters evaluated. TLT rate gate checked. If all conditions align, T2 tranche enters TQQQ position.</div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">INTRADAY</div>
-      <div class="tl-content">
-        <div class="tl-title">CONTINUOUS MONITORING</div>
-        <div class="tl-desc">VIXY deterioration exit watches for 8% rise from open. GLD strength exit watches for rotation signal. Stop-loss levels monitored continuously.</div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">15:45</div>
-      <div class="tl-content">
-        <div class="tl-title">PRE-CLOSE VIXY CHECK</div>
-        <div class="tl-desc">Final VIXY check against absolute ceiling threshold. Positions exited if overnight risk is deemed elevated. Avoids gap-down opens.</div>
-      </div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-time">16:00</div>
-      <div class="tl-content">
-        <div class="tl-title">MARKET CLOSE</div>
-        <div class="tl-desc">State saved to ObjectStore. Performance metrics updated. Weekly reporting data written if Monday run.</div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- RISK MANAGEMENT -->
-<section class="section">
-  <div class="col-label">Risk Controls</div>
-  <h2 class="col-title" style="margin-bottom:8px;">DOWNSIDE<br>PROTECTION LAYERS</h2>
-  <p style="color:var(--text-dim); font-size:14px; margin-bottom:0;">Multiple independent systems reduce exposure before losses compound.</p>
-  <table class="risk-table">
-    <thead>
-      <tr>
-        <th>Control Layer</th>
-        <th>Trigger</th>
-        <th>Action</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>VIXY Overnight Spike</td>
-        <td>VIXY > overnight threshold</td>
-        <td>Exit all positions pre-open</td>
-        <td><span class="pill">ACTIVE</span></td>
-      </tr>
-      <tr>
-        <td>VIXY 5-Day Structural</td>
-        <td>5-day VIXY EMA elevated</td>
-        <td>Block new entries</td>
-        <td><span class="pill">ACTIVE</span></td>
-      </tr>
-      <tr>
-        <td>Intraday VIXY Deterioration</td>
-        <td>+8% rise from open</td>
-        <td>Exit TQQQ immediately</td>
-        <td><span class="pill">ACTIVE</span></td>
-      </tr>
-      <tr>
-        <td>Pre-Close VIXY Ceiling</td>
-        <td>Absolute ceiling at 15:45</td>
-        <td>Exit before close</td>
-        <td><span class="pill">ACTIVE</span></td>
-      </tr>
-      <tr>
-        <td>TQQQ Hard Stop</td>
-        <td>Price below stop level</td>
-        <td>Market exit</td>
-        <td><span class="pill">ACTIVE</span></td>
-      </tr>
-      <tr>
-        <td>TLT Rate Gate</td>
-        <td>Adverse rate trend</td>
-        <td>Block new T2 entries</td>
-        <td><span class="pill">ACTIVE</span></td>
-      </tr>
-    </tbody>
-  </table>
+    <!-- RISK CONTROLS -->
+    <div class="strat-section">
+      <div class="strat-section-title">RISK CONTROL LAYERS</div>
+      <table class="risk-table">
+        <thead>
+          <tr>
+            <th>Control Layer</th>
+            <th>Trigger</th>
+            <th>Action</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>VIXY Overnight Spike</td>
+            <td>VIXY overnight threshold breach</td>
+            <td>Exit all positions pre-open</td>
+            <td><span class="pill">ACTIVE</span></td>
+          </tr>
+          <tr>
+            <td>VIXY 5-Day Structural</td>
+            <td>5-day VIXY EMA elevated</td>
+            <td>Block new entries</td>
+            <td><span class="pill">ACTIVE</span></td>
+          </tr>
+          <tr>
+            <td>Intraday VIXY Deterioration</td>
+            <td>+8% rise from open</td>
+            <td>Exit TQQQ immediately</td>
+            <td><span class="pill">ACTIVE</span></td>
+          </tr>
+          <tr>
+            <td>Pre-Close VIXY Ceiling</td>
+            <td>Absolute ceiling at 15:45</td>
+            <td>Exit before close</td>
+            <td><span class="pill">ACTIVE</span></td>
+          </tr>
+          <tr>
+            <td>TQQQ Hard Stop</td>
+            <td>Price below stop level</td>
+            <td>Market exit</td>
+            <td><span class="pill">ACTIVE</span></td>
+          </tr>
+          <tr>
+            <td>TLT Rate Gate</td>
+            <td>Adverse rate trend</td>
+            <td>Block new entries</td>
+            <td><span class="pill">ACTIVE</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div><!-- end restricted-content -->
 </section>
 
 <div class="disclaimer">
-  RISK DISCLOSURE: Trading leveraged ETFs such as TQQQ involves substantial risk of loss. Past performance of the MAT8 algorithm does not guarantee future results. Algorithmic strategies can fail or underperform in changing market conditions. This page is for informational purposes only and does not constitute financial advice. Always consult a licensed financial advisor before investing.
+  RISK DISCLOSURE: Trading leveraged ETFs such as TQQQ involves substantial risk of loss. Past performance of the MAT8 algorithm does not guarantee future results. Algorithmic strategies can fail or underperform in changing market conditions. This page is for informational purposes only and does not constitute financial advice.
 </div>
 
 <footer>
   <div class="footer-logo">MAT<span>8</span></div>
   <div class="footer-note">© 2025 MAT8 Algorithmic Trading · Singapore</div>
 </footer>
+
+<script>
+  // ─────────────────────────────────────────
+  // CHANGE THIS TO YOUR DESIRED PIN
+  const SECRET_PIN = '1234';
+  // ─────────────────────────────────────────
+
+  const SESSION_KEY = 'mat8_strategy_unlocked';
+  let currentInput = '';
+
+  // Check if already unlocked this session
+  if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+    showContent();
+  }
+
+  function enterDigit(d) {
+    if (currentInput.length >= SECRET_PIN.length) return;
+    currentInput += d;
+    updateDots();
+    if (currentInput.length === SECRET_PIN.length) {
+      setTimeout(checkPin, 120);
+    }
+  }
+
+  function updateDots() {
+    for (let i = 0; i < SECRET_PIN.length; i++) {
+      document.getElementById('dot' + i).classList.toggle('filled', i < currentInput.length);
+    }
+  }
+
+  function clearPin() {
+    currentInput = '';
+    updateDots();
+    document.getElementById('pin-error').classList.remove('show');
+  }
+
+  function checkPin() {
+    if (currentInput === SECRET_PIN) {
+      sessionStorage.setItem(SESSION_KEY, 'true');
+      showContent();
+    } else {
+      document.getElementById('pin-error').classList.add('show');
+      currentInput = '';
+      updateDots();
+      // Shake animation
+      const box = document.querySelector('.pin-entry-box');
+      box.style.animation = 'shake 0.4s ease';
+      setTimeout(() => box.style.animation = '', 400);
+    }
+  }
+
+  function showContent() {
+    document.getElementById('pin-entry-ui').style.display = 'none';
+    document.getElementById('restricted-content').classList.add('unlocked');
+  }
+
+  function lockOut() {
+    sessionStorage.removeItem(SESSION_KEY);
+    currentInput = '';
+    updateDots();
+    document.getElementById('pin-error').classList.remove('show');
+    document.getElementById('pin-entry-ui').style.display = 'block';
+    document.getElementById('restricted-content').classList.remove('unlocked');
+  }
+
+  // Keyboard support
+  document.addEventListener('keydown', e => {
+    if (e.key >= '0' && e.key <= '9') enterDigit(e.key);
+    if (e.key === 'Backspace' || e.key === 'Delete' || e.key === 'Escape') clearPin();
+  });
+</script>
+
+<style>
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-6px); }
+    80% { transform: translateX(6px); }
+  }
+</style>
 
 </body>
 </html>
