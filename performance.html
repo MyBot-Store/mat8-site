@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAT8 — Live Performance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080c0f;
+    --bg2: #0d1318;
+    --bg3: #111820;
+    --border: rgba(255,255,255,0.07);
+    --mint: #00e5a0;
+    --mint-dim: rgba(0,229,160,0.12);
+    --amber: #f5a623;
+    --amber-dim: rgba(245,166,35,0.12);
+    --text: #e8edf2;
+    --text-dim: #7a8a96;
+    --text-muted: #3d4f5c;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-mono: 'DM Mono', monospace;
+    --font-body: 'DM Sans', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 64px;
+    background: rgba(8,12,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 3px; color: var(--text); text-decoration: none; }
+  .nav-logo span { color: var(--mint); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--mint); }
+  .nav-cta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--mint); border: none; padding: 10px 22px; cursor: pointer; text-decoration: none; }
+
+  /* PAGE HERO */
+  .page-hero {
+    padding: 100px 48px 48px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
+  }
+  .page-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .page-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--mint); }
+  .page-title { font-family: var(--font-display); font-size: clamp(40px, 6vw, 80px); letter-spacing: 2px; line-height: 0.92; }
+  .page-title .dim { color: var(--text-muted); }
+  .live-badge {
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px;
+    color: var(--mint); border: 1px solid rgba(0,229,160,0.3);
+    padding: 10px 18px; flex-shrink: 0; align-self: flex-start; margin-top: 80px;
+  }
+  .live-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--mint); animation: pulse 2s ease infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+  /* STRATEGY TABS */
+  .tab-bar {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    padding: 0 48px;
+    gap: 0;
+  }
+  .tab-btn {
+    font-family: var(--font-mono);
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-muted);
+    background: none; border: none; cursor: pointer;
+    padding: 18px 28px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text-dim); }
+  .tab-btn.active { color: var(--mint); border-bottom-color: var(--mint); }
+  .tab-btn.amber.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+  /* META BAR per strategy */
+  .meta-bar {
+    display: flex; align-items: center; gap: 32px;
+    padding: 16px 48px;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg2);
+    flex-wrap: wrap;
+    transition: all 0.2s;
+  }
+  .meta-item { display: flex; align-items: center; gap: 8px; }
+  .meta-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+  .meta-value { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); }
+  .meta-sep { color: var(--text-muted); font-size: 12px; }
+  .meta-accent { color: var(--mint); }
+  .meta-accent.amber { color: var(--amber); }
+
+  /* DASHBOARD PANELS */
+  .dashboard-panel {
+    display: none;
+    padding: 40px 48px;
+  }
+  .dashboard-panel.active { display: block; }
+
+  .strategy-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 24px; flex-wrap: wrap; gap: 16px;
+  }
+  .strategy-label {
+    font-family: var(--font-display);
+    font-size: 32px; letter-spacing: 2px;
+  }
+  .strategy-label .accent { color: var(--mint); }
+  .strategy-label .accent.amber { color: var(--amber); }
+  .strategy-desc {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px;
+    color: var(--text-muted); margin-top: 4px;
+  }
+  .open-link {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--text-muted);
+    border: 1px solid var(--border); padding: 8px 16px;
+    text-decoration: none; transition: color 0.2s, border-color 0.2s;
+    white-space: nowrap;
+  }
+  .open-link:hover { color: var(--mint); border-color: rgba(0,229,160,0.4); }
+  .open-link.amber:hover { color: var(--amber); border-color: rgba(245,166,35,0.4); }
+
+  .iframe-wrap {
+    position: relative;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    overflow: hidden;
+  }
+  .iframe-loader {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px; background: var(--bg2); z-index: 2;
+    transition: opacity 0.4s;
+  }
+  .iframe-loader.hidden { opacity: 0; pointer-events: none; }
+  .spinner { width: 32px; height: 32px; border: 2px solid var(--border); border-top-color: var(--mint); border-radius: 50%; animation: spin 1s linear infinite; }
+  .spinner.amber { border-top-color: var(--amber); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loader-text { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-muted); }
+
+  iframe { display: block; width: 100%; border: none; }
+
+  /* FOOTNOTE */
+  .footnote {
+    padding: 20px 48px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    flex-wrap: wrap; background: var(--bg2);
+  }
+  .footnote-text { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.5px; color: var(--text-muted); line-height: 1.6; }
+  .update-chips { display: flex; gap: 12px; flex-wrap: wrap; }
+  .chip { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; padding: 6px 12px; border: 1px solid var(--border); color: var(--text-muted); white-space: nowrap; }
+  .chip span { color: var(--mint); }
+  .chip span.amber { color: var(--amber); }
+
+  footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; background: var(--bg); }
+  .footer-logo { font-family: var(--font-display); font-size: 18px; letter-spacing: 3px; color: var(--text-muted); }
+  .footer-logo span { color: var(--mint); }
+  .footer-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; color: var(--text-muted); }
+
+  @media (max-width: 900px) {
+    nav { padding: 0 24px; }
+    .nav-links { display: none; }
+    .page-hero { padding: 90px 24px 40px; flex-direction: column; align-items: flex-start; }
+    .live-badge { margin-top: 16px; }
+    .tab-bar { padding: 0 16px; overflow-x: auto; }
+    .meta-bar { padding: 14px 24px; gap: 16px; }
+    .dashboard-panel { padding: 24px; }
+    .footnote { padding: 16px 24px; }
+    footer { flex-direction: column; gap: 12px; padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/mat8-site/index.html" class="nav-logo">MAT<span>8</span></a>
+  <ul class="nav-links">
+    <li><a href="/mat8-site/index.html">Home</a></li>
+    <li><a href="/mat8-site/strategy.html">Strategy</a></li>
+    <li><a href="/mat8-site/performance.html" class="active">Performance</a></li>
+    <li><a href="/mat8-site/faq.html">FAQ</a></li>
+  </ul>
+  <a href="/mat8-site/performance.html" class="nav-cta">View Performance</a>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div>
+    <div class="page-tag">Live Data · IBKR Verified</div>
+    <h1 class="page-title">LIVE<br><span class="dim">PERFORMANCE</span></h1>
+  </div>
+  <div class="live-badge">
+    <div class="live-dot"></div>
+    UPDATING DAILY
+  </div>
+</div>
+
+<!-- STRATEGY TABS -->
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="switchTab('cm')">CM Returns</button>
+  <button class="tab-btn amber" onclick="switchTab('lml')">LML Returns</button>
+</div>
+
+<!-- META BAR — CM -->
+<div class="meta-bar" id="meta-cm">
+  <div class="meta-item">
+    <span class="meta-label">Strategy</span>
+    <span class="meta-value meta-accent">CM-Series</span>
+  </div>
+  <span class="meta-sep">·</span>
+  <div class="meta-item">
+    <span class="meta-label">Broker</span>
+    <span class="meta-value">Interactive Brokers</span>
+  </div>
+  <span class="meta-sep">·</span>
+  <div class="meta-item">
+    <span class="meta-label">Platform</span>
+    <span class="meta-value">QuantConnect</span>
+  </div>
+  <span class="meta-sep">·</span>
+  <div class="meta-item">
+    <span class="meta-label">Update Cadence</span>
+    <span class="meta-value">Daily</span>
+  </div>
+  <span class="meta-sep">·</span>
+  <div class="meta-item">
+    <span class="meta-label">Source</span>
+    <span class="meta-value">mybot-store.github.io/CM-Returns</span>
+  </div>
+</div>
+
+<!-- META BAR — LML -->
+<div class="meta-bar" id="meta-lml" style="display:none;">
+  <div class="meta-item">
+    <span class="meta-label">Strategy</span>
+    <span class="meta-value meta-accent amber">LML-Series</span>
+  </div>
+  <span class="meta-sep">·</span>
+  <div class="meta-item">
+    <span class="meta-label">Broker</span>
+    <span class="meta-value">Interactive Brokers</span>
+  </div>
+  <span class="meta-sep">·</span>
+  <div class="meta-item">
+    <span class="meta-label">Platform</span>
+    <span class="meta-value">QuantConnect</span>
+  </div>
+  <span class="meta-sep">·</span>
+  <div class="meta-item">
+    <span class="meta-label">Update Cadence</span>
+    <span class="meta-value">Daily</span>
+  </div>
+  <span class="meta-sep">·</span>
+  <div class="meta-item">
+    <span class="meta-label">Source</span>
+    <span class="meta-value">mybot-store.github.io/LML-Returns</span>
+  </div>
+</div>
+
+<!-- CM PANEL -->
+<div class="dashboard-panel active" id="panel-cm">
+  <div class="strategy-header">
+    <div>
+      <div class="strategy-label"><span class="accent">CM</span> RETURNS</div>
+      <div class="strategy-desc">Collective Mind Series · Live IBKR Account Data</div>
+    </div>
+    <a href="https://mybot-store.github.io/CM-Returns/" target="_blank" class="open-link">↗ Open Full Page</a>
+  </div>
+  <div class="iframe-wrap">
+    <div class="iframe-loader" id="loader-cm">
+      <div class="spinner"></div>
+      <div class="loader-text">LOADING CM RETURNS...</div>
+    </div>
+    <iframe
+      src="https://mybot-store.github.io/CM-Returns/"
+      height="1100"
+      onload="document.getElementById('loader-cm').classList.add('hidden')">
+    </iframe>
+  </div>
+</div>
+
+<!-- LML PANEL -->
+<div class="dashboard-panel" id="panel-lml">
+  <div class="strategy-header">
+    <div>
+      <div class="strategy-label"><span class="accent amber">LML</span> RETURNS</div>
+      <div class="strategy-desc">Long Momentum Leveraged Series · Live IBKR Account Data</div>
+    </div>
+    <a href="https://mybot-store.github.io/LML-Returns/" target="_blank" class="open-link amber">↗ Open Full Page</a>
+  </div>
+  <div class="iframe-wrap">
+    <div class="iframe-loader" id="loader-lml">
+      <div class="spinner amber"></div>
+      <div class="loader-text">LOADING LML RETURNS...</div>
+    </div>
+    <iframe
+      src="https://mybot-store.github.io/LML-Returns/"
+      height="1100"
+      onload="document.getElementById('loader-lml').classList.add('hidden')">
+    </iframe>
+  </div>
+</div>
+
+<!-- FOOTNOTE -->
+<div class="footnote">
+  <div class="footnote-text">
+    Performance data sourced directly from Interactive Brokers via IBKR Flex Query API.<br>
+    Both strategies update independently via their own GitHub Actions pipelines. Past performance is not indicative of future results.
+  </div>
+  <div class="update-chips">
+    <div class="chip">CM-Returns: <span>Daily Auto-Sync</span></div>
+    <div class="chip">LML-Returns: <span class="amber">Daily Auto-Sync</span></div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">MAT<span>8</span></div>
+  <div class="footer-note">© 2025 MAT8 Algorithmic Trading · Singapore · Past performance does not guarantee future results</div>
+</footer>
+
+<script>
+  function switchTab(id) {
+    // Panels
+    document.querySelectorAll('.dashboard-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('panel-' + id).classList.add('active');
+
+    // Meta bars
+    document.getElementById('meta-cm').style.display = id === 'cm' ? 'flex' : 'none';
+    document.getElementById('meta-lml').style.display = id === 'lml' ? 'flex' : 'none';
+
+    // Tab buttons
+    const tabs = document.querySelectorAll('.tab-btn');
+    tabs[0].classList.toggle('active', id === 'cm');
+    tabs[1].classList.toggle('active', id === 'lml');
+  }
+</script>
+
+</body>
+</html>
