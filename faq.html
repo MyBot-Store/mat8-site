@@ -236,15 +236,29 @@
 <body>
 
 <nav>
+  <button class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
   <a href="/mat8-site/index.html" class="nav-logo">MAT<span>8</span></a>
   <ul class="nav-links">
     <li><a href="/mat8-site/index.html">Home</a></li>
     <li><a href="/mat8-site/strategy.html">Strategy</a></li>
     <li><a href="/mat8-site/performance.html">Performance</a></li>
-    <li><a href="/mat8-site/faq.html" class="active">FAQ</a></li>
+    <li><a href="/mat8-site/faq.html"  class="active">FAQ</a></li>
   </ul>
   <a href="/mat8-site/performance.html" class="nav-cta">View Performance</a>
 </nav>
+<div class="mobile-menu" id="mobile-menu">
+  <ul class="mobile-menu-links">
+    <li><a href="/mat8-site/index.html">Home</a></li>
+    <li><a href="/mat8-site/strategy.html">Strategy</a></li>
+    <li><a href="/mat8-site/performance.html">Performance</a></li>
+    <li><a href="/mat8-site/faq.html"  class="active">FAQ</a></li>
+  </ul>
+  <div class="mobile-menu-cta">
+    <a href="/mat8-site/performance.html">View Performance</a>
+  </div>
+</div>
 
 <div class="page-hero">
   <div class="page-hero-grid"></div>
