@@ -392,9 +392,75 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* ── HAMBURGER ── */
+  .hamburger {
+    display: none;
+    flex-direction: column; justify-content: center; align-items: center;
+    gap: 5px; width: 40px; height: 40px;
+    background: none; border: none; cursor: pointer; padding: 4px;
+    z-index: 200;
+  }
+  .hamburger span {
+    display: block; width: 22px; height: 2px;
+    background: var(--text); border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── MOBILE MENU ── */
+  .mobile-menu {
+    display: none;
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: rgba(8,12,15,0.98);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    transform: translateY(-8px); opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .mobile-menu.open {
+    transform: translateY(0); opacity: 1;
+    pointer-events: all;
+  }
+  .mobile-menu-links {
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+  .mobile-menu-links li {
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-menu-links a {
+    display: block; padding: 20px 24px;
+    font-family: var(--font-mono); font-size: 12px;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--text-dim); text-decoration: none;
+    transition: color 0.2s, background 0.2s;
+  }
+  .mobile-menu-links a:hover,
+  .mobile-menu-links a.active { color: var(--mint); background: var(--mint-dim); }
+  .mobile-menu-cta {
+    padding: 20px 24px;
+  }
+  .mobile-menu-cta a {
+    display: block; text-align: center;
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--bg); background: var(--mint);
+    padding: 14px; text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .mobile-menu-cta a:hover { opacity: 0.85; }
+
   @media (max-width: 900px) {
     nav { padding: 0 24px; }
     .nav-links { display: none; }
+    .nav-cta { display: none; }
+    .hamburger { display: flex; }
+    .mobile-menu { display: block; }
     .hero { padding: 100px 24px 60px; }
     .stats-bar { grid-template-columns: repeat(2,1fr); }
     .features-grid { grid-template-columns: 1fr; }
@@ -572,5 +638,21 @@
   <div class="footer-note">© 2025 MAT8 Algorithmic Trading · Singapore · Past performance does not guarantee future results</div>
 </footer>
 
+
+<script>
+  function toggleMenu() {
+    const btn = document.getElementById('hamburger');
+    const menu = document.getElementById('mobile-menu');
+    btn.classList.toggle('open');
+    menu.classList.toggle('open');
+  }
+  // Close menu when a link is clicked
+  document.querySelectorAll('.mobile-menu-links a').forEach(a => {
+    a.addEventListener('click', () => {
+      document.getElementById('hamburger').classList.remove('open');
+      document.getElementById('mobile-menu').classList.remove('open');
+    });
+  });
+</script>
 </body>
 </html>
