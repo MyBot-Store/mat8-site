@@ -32,7 +32,12 @@
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 3px; color: var(--text); text-decoration: none; }
+  /* Logo absolutely centered in nav */
+  .nav-logo {
+    font-family: var(--font-display); font-size: 22px; letter-spacing: 3px;
+    color: var(--text); text-decoration: none;
+    position: absolute; left: 50%; transform: translateX(-50%);
+  }
   .nav-logo span { color: var(--mint); }
   .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
@@ -223,6 +228,7 @@
     .nav-links { display: none; }
     .nav-cta { display: none; }
     .hamburger { display: flex; }
+    /* Logo stays centered via absolute positioning — no change needed */
     .mobile-menu { display: block; }
     .page-hero { padding: 100px 24px 60px; }
     .faq-layout { grid-template-columns: 1fr; }
