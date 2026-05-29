@@ -161,40 +161,71 @@
   }
   .btn-ghost:hover { border-color: var(--mint); color: var(--mint); }
 
-  /* ── STATS BAR ── */
-  .stats-bar {
-    display: grid; grid-template-columns: repeat(4, 1fr);
+  /* ── LIVE PERFORMANCE STRIP ── */
+  .live-strip {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 32px; flex-wrap: wrap;
+    padding: 24px 48px;
+    background: var(--bg2);
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    background: var(--bg2);
   }
-  .stat-item {
-    padding: 28px 40px;
-    border-right: 1px solid var(--border);
-    animation: fadeUp 0.6s ease both;
+  .live-strip-left {
+    display: flex; align-items: center; gap: 16px;
   }
-  .stat-item:last-child { border-right: none; }
-  .stat-label {
-    font-family: var(--font-mono);
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    margin-bottom: 8px;
+  .live-strip-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--mint); flex-shrink: 0;
+    animation: pulse 2s ease infinite;
   }
-  .stat-value {
-    font-family: var(--font-display);
-    font-size: 36px;
-    letter-spacing: 1px;
-    color: var(--text);
+  .live-strip-label {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--text-dim);
   }
-  .stat-value.positive { color: var(--mint); }
-  .stat-delta {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--text-muted);
+  .live-strip-sub {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 1px; color: var(--text-muted);
     margin-top: 4px;
   }
+  .live-strip-strategies {
+    display: flex; align-items: center; gap: 24px;
+  }
+  .live-strip-strategy {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .live-strip-ticker {
+    font-family: var(--font-display); font-size: 20px;
+    letter-spacing: 2px;
+  }
+  .live-strip-ticker.mint { color: var(--mint); }
+  .live-strip-ticker.amber { color: var(--amber); }
+  .live-strip-name {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 1px; color: var(--text-dim);
+  }
+  .live-strip-badge {
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 1px; padding: 3px 8px;
+    background: var(--mint-dim); color: var(--mint);
+    border: 1px solid rgba(0,229,160,0.2);
+  }
+  .live-strip-badge.amber {
+    background: rgba(245,166,35,0.1); color: var(--amber);
+    border-color: rgba(245,166,35,0.2);
+  }
+  .live-strip-divider {
+    width: 1px; height: 32px; background: var(--border);
+  }
+  .live-strip-cta {
+    font-family: var(--font-mono); font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--bg); background: var(--mint);
+    padding: 12px 24px; text-decoration: none;
+    transition: opacity 0.2s; flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .live-strip-cta:hover { opacity: 0.85; }
 
   /* ── FEATURES ── */
   .section {
@@ -426,28 +457,29 @@
   </div>
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="stat-item">
-    <div class="stat-label">Annualised Return</div>
-    <div class="stat-value positive">+47.2%</div>
-    <div class="stat-delta">Since inception</div>
+<!-- LIVE PERFORMANCE STRIP -->
+<div class="live-strip">
+  <div class="live-strip-left">
+    <div class="live-strip-dot"></div>
+    <div>
+      <div class="live-strip-label">Live Performance Data</div>
+      <div class="live-strip-sub">CM-Returns &amp; LML-Returns — updated daily from Interactive Brokers</div>
+    </div>
   </div>
-  <div class="stat-item">
-    <div class="stat-label">Sharpe Ratio</div>
-    <div class="stat-value">1.84</div>
-    <div class="stat-delta">Risk-adjusted</div>
+  <div class="live-strip-strategies">
+    <div class="live-strip-strategy">
+      <span class="live-strip-ticker mint">CM</span>
+      <span class="live-strip-name">Collective Mind Series</span>
+      <span class="live-strip-badge">Daily</span>
+    </div>
+    <div class="live-strip-divider"></div>
+    <div class="live-strip-strategy">
+      <span class="live-strip-ticker amber">LML</span>
+      <span class="live-strip-name">Long Momentum Leveraged</span>
+      <span class="live-strip-badge amber">Daily</span>
+    </div>
   </div>
-  <div class="stat-item">
-    <div class="stat-label">Max Drawdown</div>
-    <div class="stat-value">−18.3%</div>
-    <div class="stat-delta">Controlled risk</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-label">Win Rate</div>
-    <div class="stat-value positive">68.4%</div>
-    <div class="stat-delta">All closed trades</div>
-  </div>
+  <a href="/mat8-site/performance.html" class="live-strip-cta">View Live Data →</a>
 </div>
 
 <!-- FEATURES -->
@@ -491,7 +523,7 @@
       <div class="feature-num">06</div>
       <div class="feature-icon">📈</div>
       <div class="feature-title">LIVE REPORTING</div>
-      <p class="feature-desc">Weekly automated performance reports pulled directly from your IBKR account. Full transparency on every trade and fee.</p>
+      <p class="feature-desc">Daily automated performance reports pulled directly from your IBKR account. Full transparency on every trade and fee.</p>
     </div>
   </div>
 </section>
