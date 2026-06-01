@@ -77,7 +77,7 @@
   /* ── TICKER ── */
   .ticker-wrap { overflow: hidden; border-bottom: 1px solid var(--border); background: var(--bg2); padding: 12px 0; }
   .ticker-track { display: flex; gap: 48px; animation: ticker 35s linear infinite; white-space: nowrap; }
-  .ticker-item { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--text-muted); display: flex; gap: 10px; align-items: center; }
+  .ticker-item { font-family: var(--font-mono); font-size: 17px; letter-spacing: 1px; color: var(--text-muted); display: flex; gap: 10px; align-items: center; }
   .ticker-item .up { color: var(--mint); }
   .ticker-item .dn { color: #ef5350; }
   .ticker-item .sym { color: var(--text-dim); }
@@ -169,6 +169,33 @@
   .footer-saas span { color: var(--mint); }
 
   @media (max-width: 900px) {
+    /* ── MOBILE: replace grey with white for readability on dark background ── */
+    :root {
+      --text:      #ffffff;
+      --text-dim:  #ffffff;
+      --text-muted: rgba(255,255,255,0.65);
+    }
+    /* Labels and tags: bold white to distinguish from body */
+    .section-tag, .col-label, .page-tag, .hero-tag,
+    .saas-label, .step-num, .feature-num, .stat-label,
+    .meta-label, .faq-nav-label, .signal-name, .pillar-name,
+    .pillar-card-name, .layer-label, .tl-time, .inst-ticker,
+    .live-strip-label, .live-strip-sub, .update-info,
+    .footnote-text, .footer-note, .saas-banner-text,
+    .strategy-desc, .loader-text, .tab-btn,
+    .pin-entry-label, .pin-entry-desc, .unlock-banner,
+    .faq-answer p, .col-body p, .saas-body p,
+    .step-desc, .feature-desc, .hero-sub, .page-subtitle,
+    .saas-point-text, .layer-desc, .tl-desc, .signal-desc,
+    .pillar-desc, .pillar-card-desc, .inst-role,
+    .contact-band p, .footer-saas { color: #ffffff; }
+    /* Secondary labels: bold so they stand out from body copy */
+    .section-tag, .col-label, .page-tag, .hero-tag,
+    .saas-label, .step-num, .feature-num, .meta-label,
+    .faq-nav-label, .layer-label, .tl-time, .live-strip-label,
+    .pin-entry-label, .saas-banner-text { font-weight: 500; }
+    /* Nav mobile menu links: bright white */
+    .mobile-menu-links a { color: #ffffff; }
     nav { padding: 0 24px; }
     .nav-links { display: none; }
     .nav-cta { display: none; }
