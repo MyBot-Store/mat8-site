@@ -12,7 +12,7 @@
     --border: rgba(255,255,255,0.07);
     --mint: #00e5a0; --mint-dim: rgba(0,229,160,0.12);
     --amber: #f5a623; --amber-dim: rgba(245,166,35,0.12);
-    --text: #e8edf2; --text-dim: #7a8a96; --text-muted: #3d4f5c;
+    --text: #ffffff; --text-dim: #c8d4dc; --text-muted: rgba(255,255,255,0.6);
     --font-display: 'Bebas Neue', sans-serif;
     --font-mono: 'DM Mono', monospace;
     --font-body: 'DM Sans', sans-serif;
@@ -30,9 +30,9 @@
   .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 3px; color: var(--text); text-decoration: none; position: absolute; left: 50%; transform: translateX(-50%); }
   .nav-logo span { color: var(--mint); }
   .nav-links { display: flex; gap: 36px; list-style: none; }
-  .nav-links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+  .nav-links a { font-family: var(--font-mono); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover, .nav-links a.active { color: var(--mint); }
-  .nav-cta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--mint); border: none; padding: 10px 22px; cursor: pointer; text-decoration: none; }
+  .nav-cta { font-family: var(--font-mono); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--mint); border: none; padding: 10px 22px; cursor: pointer; text-decoration: none; }
   .hamburger { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 200; }
   .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; transform-origin: center; }
   .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -48,11 +48,11 @@
   .mobile-menu-cta a { display: block; text-align: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--mint); padding: 14px; text-decoration: none; }
 
   .saas-banner { background: rgba(0,229,160,0.05); border-bottom: 1px solid rgba(0,229,160,0.15); padding: 10px 48px; display: flex; align-items: center; justify-content: center; margin-top: 64px; }
-  .saas-banner-text { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); text-align: center; }
+  .saas-banner-text { font-family: var(--font-mono); font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); text-align: center; }
   .saas-banner-text span { color: var(--mint); }
 
   .page-hero { padding: 64px 48px 40px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; }
-  .page-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .page-tag { font-family: var(--font-mono); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
   .page-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--mint); }
   .page-title { font-family: var(--font-display); font-size: clamp(40px, 6vw, 80px); letter-spacing: 2px; line-height: 0.92; }
   .page-title .dim { color: var(--text-muted); }
@@ -68,8 +68,8 @@
 
   .meta-bar { display: flex; align-items: center; gap: 32px; padding: 14px 48px; border-bottom: 1px solid var(--border); background: var(--bg2); flex-wrap: wrap; }
   .meta-item { display: flex; align-items: center; gap: 8px; }
-  .meta-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
-  .meta-value { font-family: var(--font-mono); font-size: 11px; color: var(--text-dim); }
+  .meta-label { font-family: var(--font-mono); font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); }
+  .meta-value { font-family: var(--font-mono); font-size: 13px; color: var(--text-dim); }
   .meta-sep { color: var(--text-muted); font-size: 12px; }
   .meta-accent { color: var(--mint); }
   .meta-accent.amber { color: var(--amber); }
@@ -80,8 +80,8 @@
   .strategy-label { font-family: var(--font-display); font-size: 28px; letter-spacing: 2px; }
   .strategy-label .accent { color: var(--mint); }
   .strategy-label .accent.amber { color: var(--amber); }
-  .strategy-desc { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--text-muted); margin-top: 4px; }
-  .open-link { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; text-decoration: none; transition: color 0.2s, border-color 0.2s; white-space: nowrap; }
+  .strategy-desc { font-family: var(--font-mono); font-size: 13px; letter-spacing: 1px; color: var(--text-muted); margin-top: 4px; }
+  .open-link { font-family: var(--font-mono); font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border); padding: 8px 16px; text-decoration: none; transition: color 0.2s, border-color 0.2s; white-space: nowrap; }
   .open-link:hover { color: var(--mint); border-color: rgba(0,229,160,0.4); }
   .open-link.amber:hover { color: var(--amber); border-color: rgba(245,166,35,0.4); }
   .iframe-wrap { position: relative; border: 1px solid var(--border); background: var(--bg2); overflow: hidden; }
@@ -90,13 +90,13 @@
   .spinner { width: 32px; height: 32px; border: 2px solid var(--border); border-top-color: var(--mint); border-radius: 50%; animation: spin 1s linear infinite; }
   .spinner.amber { border-top-color: var(--amber); }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .loader-text { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; color: var(--text-muted); }
+  .loader-text { font-family: var(--font-mono); font-size: 13px; letter-spacing: 2px; color: var(--text-muted); }
   iframe { display: block; width: 100%; border: none; }
 
   .footnote { padding: 18px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; background: var(--bg2); }
-  .footnote-text { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.5px; color: var(--text-muted); line-height: 1.6; }
+  .footnote-text { font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.5px; color: var(--text-muted); line-height: 1.6; }
   .update-chips { display: flex; gap: 12px; flex-wrap: wrap; }
-  .chip { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; padding: 6px 12px; border: 1px solid var(--border); color: var(--text-muted); white-space: nowrap; }
+  .chip { font-family: var(--font-mono); font-size: 13px; letter-spacing: 1px; padding: 6px 12px; border: 1px solid var(--border); color: var(--text-muted); white-space: nowrap; }
   .chip span { color: var(--mint); }
   .chip span.amber { color: var(--amber); }
 
@@ -104,8 +104,8 @@
   .footer-main { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; }
   .footer-logo { font-family: var(--font-display); font-size: 18px; letter-spacing: 3px; color: var(--text-muted); }
   .footer-logo span { color: var(--mint); }
-  .footer-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; color: var(--text-muted); }
-  .footer-saas { padding: 16px 48px; border-top: 1px solid var(--border); background: var(--bg2); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.5px; color: var(--text-muted); line-height: 1.7; text-align: center; }
+  .footer-note { font-family: var(--font-mono); font-size: 13px; letter-spacing: 1px; color: var(--text-muted); }
+  .footer-saas { padding: 20px 48px; border-top: 1px solid var(--border); background: var(--bg2); font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.5px; color: var(--text-muted); line-height: 1.7; text-align: center; }
   .footer-saas span { color: var(--mint); }
 
   @media (max-width: 900px) {
