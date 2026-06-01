@@ -8,15 +8,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #080c0f;
-    --bg2: #0d1318;
-    --bg3: #111820;
+    --bg: #080c0f; --bg2: #0d1318; --bg3: #111820;
     --border: rgba(255,255,255,0.07);
-    --mint: #00e5a0;
-    --mint-dim: rgba(0,229,160,0.12);
-    --text: #e8edf2;
-    --text-dim: #7a8a96;
-    --text-muted: #3d4f5c;
+    --mint: #00e5a0; --mint-dim: rgba(0,229,160,0.12);
+    --text: #e8edf2; --text-dim: #7a8a96; --text-muted: #3d4f5c;
     --font-display: 'Bebas Neue', sans-serif;
     --font-mono: 'DM Mono', monospace;
     --font-body: 'DM Sans', sans-serif;
@@ -28,214 +23,92 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; justify-content: space-between;
     padding: 0 48px; height: 64px;
-    background: rgba(8,12,15,0.85);
-    backdrop-filter: blur(12px);
+    background: rgba(8,12,15,0.92); backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  /* Logo absolutely centered in nav */
-  .nav-logo {
-    font-family: var(--font-display); font-size: 22px; letter-spacing: 3px;
-    color: var(--text); text-decoration: none;
-    position: absolute; left: 50%; transform: translateX(-50%);
-  }
+  .nav-logo { font-family: var(--font-display); font-size: 22px; letter-spacing: 3px; color: var(--text); text-decoration: none; position: absolute; left: 50%; transform: translateX(-50%); }
   .nav-logo span { color: var(--mint); }
   .nav-links { display: flex; gap: 36px; list-style: none; }
   .nav-links a { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
   .nav-links a:hover, .nav-links a.active { color: var(--mint); }
   .nav-cta { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--mint); border: none; padding: 10px 22px; cursor: pointer; text-decoration: none; }
+  .hamburger { display: none; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 200; }
+  .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; transform-origin: center; }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(8,12,15,0.98); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); z-index: 99; transform: translateY(-8px); opacity: 0; transition: transform 0.25s ease, opacity 0.25s ease; pointer-events: none; }
+  .mobile-menu.open { transform: translateY(0); opacity: 1; pointer-events: all; }
+  .mobile-menu-links { list-style: none; border-top: 1px solid var(--border); }
+  .mobile-menu-links li { border-bottom: 1px solid var(--border); }
+  .mobile-menu-links a { display: block; padding: 20px 24px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 3px; text-transform: uppercase; color: var(--text-dim); text-decoration: none; transition: color 0.2s, background 0.2s; }
+  .mobile-menu-links a:hover, .mobile-menu-links a.active { color: var(--mint); background: var(--mint-dim); }
+  .mobile-menu-cta { padding: 20px 24px; }
+  .mobile-menu-cta a { display: block; text-align: center; font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--mint); padding: 14px; text-decoration: none; }
 
-  .page-hero {
-    padding: 140px 48px 80px;
-    border-bottom: 1px solid var(--border);
-    position: relative; overflow: hidden;
-  }
-  .page-hero-grid {
-    position: absolute; inset: 0;
-    background-image: linear-gradient(rgba(0,229,160,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,160,0.025) 1px, transparent 1px);
-    background-size: 60px 60px;
-  }
+  .saas-banner { background: rgba(0,229,160,0.05); border-bottom: 1px solid rgba(0,229,160,0.15); padding: 10px 48px; display: flex; align-items: center; justify-content: center; margin-top: 64px; }
+  .saas-banner-text { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); text-align: center; }
+  .saas-banner-text span { color: var(--mint); }
+
+  .page-hero { padding: 80px 48px 64px; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+  .page-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(0,229,160,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,160,0.025) 1px, transparent 1px); background-size: 60px 60px; }
   .page-hero-content { position: relative; }
   .page-tag { font-family: var(--font-mono); font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--mint); margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
   .page-tag::before { content: ''; display: block; width: 32px; height: 1px; background: var(--mint); }
   .page-title { font-family: var(--font-display); font-size: clamp(48px, 7vw, 96px); letter-spacing: 2px; line-height: 0.92; }
   .page-title .dim { color: var(--text-muted); }
 
-  .faq-layout {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    min-height: 600px;
-  }
-
-  .faq-nav {
-    border-right: 1px solid var(--border);
-    padding: 48px 32px;
-    position: sticky; top: 64px;
-    align-self: start;
-    background: var(--bg2);
-  }
-  .faq-nav-label {
-    font-family: var(--font-mono);
-    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--text-muted); margin-bottom: 20px;
-  }
+  .faq-layout { display: grid; grid-template-columns: 220px 1fr; min-height: 600px; }
+  .faq-nav { border-right: 1px solid var(--border); padding: 48px 32px; position: sticky; top: 64px; align-self: start; background: var(--bg2); }
+  .faq-nav-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
   .faq-nav-items { display: flex; flex-direction: column; gap: 4px; }
-  .faq-nav-item {
-    font-family: var(--font-mono);
-    font-size: 11px; letter-spacing: 1px;
-    color: var(--text-dim); cursor: pointer;
-    padding: 8px 12px;
-    transition: color 0.2s, background 0.2s;
-    border-left: 2px solid transparent;
-  }
+  .faq-nav-item { font-family: var(--font-mono); font-size: 11px; letter-spacing: 1px; color: var(--text-dim); cursor: pointer; padding: 8px 12px; transition: color 0.2s, background 0.2s; border-left: 2px solid transparent; }
   .faq-nav-item:hover { color: var(--text); }
   .faq-nav-item.active { color: var(--mint); border-left-color: var(--mint); background: var(--mint-dim); }
 
   .faq-content { padding: 48px; }
-
   .faq-section { margin-bottom: 60px; }
-  .faq-section-title {
-    font-family: var(--font-display);
-    font-size: 28px; letter-spacing: 2px;
-    color: var(--text-muted);
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .faq-item {
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    overflow: hidden;
-  }
-  .faq-question {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 22px 0; cursor: pointer;
-    gap: 20px;
-    transition: color 0.2s;
-  }
+  .faq-section-title { font-family: var(--font-display); font-size: 26px; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .faq-item { border-bottom: 1px solid rgba(255,255,255,0.04); overflow: hidden; }
+  .faq-question { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; cursor: pointer; gap: 20px; transition: color 0.2s; }
   .faq-question:hover { color: var(--mint); }
   .faq-question-text { font-size: 15px; font-weight: 400; line-height: 1.5; }
-  .faq-toggle {
-    font-family: var(--font-mono);
-    font-size: 18px; color: var(--mint);
-    flex-shrink: 0; transition: transform 0.3s;
-    width: 24px; text-align: center;
-  }
+  .faq-toggle { font-family: var(--font-mono); font-size: 18px; color: var(--mint); flex-shrink: 0; transition: transform 0.3s; width: 24px; text-align: center; }
   .faq-item.open .faq-toggle { transform: rotate(45deg); }
-  .faq-answer {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.4s ease, padding 0.3s ease;
-    padding: 0;
-  }
-  .faq-item.open .faq-answer {
-    max-height: 600px;
-    padding-bottom: 24px;
-  }
-  .faq-answer p {
-    font-size: 14px; line-height: 1.8; color: var(--text-dim);
-  }
+  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s ease; }
+  .faq-item.open .faq-answer { max-height: 600px; padding-bottom: 24px; }
+  .faq-answer p { font-size: 14px; line-height: 1.8; color: var(--text-dim); }
   .faq-answer p + p { margin-top: 12px; }
-  .faq-answer a { color: var(--mint); text-decoration: none; }
-  .faq-answer a:hover { text-decoration: underline; }
-  .faq-answer .highlight {
-    display: inline-block;
-    font-family: var(--font-mono); font-size: 12px;
-    background: var(--mint-dim); color: var(--mint);
-    padding: 2px 8px; margin: 2px 0;
-  }
+  .faq-answer .hl { display: inline-block; font-family: var(--font-mono); font-size: 12px; background: var(--mint-dim); color: var(--mint); padding: 2px 8px; margin: 2px 0; }
 
-  .contact-band {
-    padding: 80px 48px;
-    border-top: 1px solid var(--border);
-    background: var(--bg2);
-    display: flex; align-items: center; justify-content: space-between; gap: 40px;
-    flex-wrap: wrap;
-  }
+  .contact-band { padding: 80px 48px; border-top: 1px solid var(--border); background: var(--bg2); display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; }
   .contact-band h2 { font-family: var(--font-display); font-size: clamp(28px, 4vw, 48px); letter-spacing: 2px; }
   .contact-band h2 span { color: var(--mint); }
   .contact-band p { font-size: 14px; color: var(--text-dim); margin-top: 8px; max-width: 400px; }
   .btn-primary { font-family: var(--font-mono); font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--bg); background: var(--mint); border: none; padding: 16px 32px; cursor: pointer; text-decoration: none; flex-shrink: 0; }
 
-  footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; background: var(--bg); }
+  footer { border-top: 1px solid var(--border); background: var(--bg); }
+  .footer-main { padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; }
   .footer-logo { font-family: var(--font-display); font-size: 18px; letter-spacing: 3px; color: var(--text-muted); }
   .footer-logo span { color: var(--mint); }
   .footer-note { font-family: var(--font-mono); font-size: 10px; letter-spacing: 1px; color: var(--text-muted); }
-
-  /* ── HAMBURGER ── */
-  .hamburger {
-    display: none;
-    flex-direction: column; justify-content: center; align-items: center;
-    gap: 5px; width: 40px; height: 40px;
-    background: none; border: none; cursor: pointer; padding: 4px;
-    z-index: 200;
-  }
-  .hamburger span {
-    display: block; width: 22px; height: 2px;
-    background: var(--text); border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    transform-origin: center;
-  }
-  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-  /* ── MOBILE MENU ── */
-  .mobile-menu {
-    display: none;
-    position: fixed; top: 64px; left: 0; right: 0;
-    background: rgba(8,12,15,0.98);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    z-index: 99;
-    transform: translateY(-8px); opacity: 0;
-    transition: transform 0.25s ease, opacity 0.25s ease;
-    pointer-events: none;
-  }
-  .mobile-menu.open {
-    transform: translateY(0); opacity: 1;
-    pointer-events: all;
-  }
-  .mobile-menu-links {
-    list-style: none;
-    border-top: 1px solid var(--border);
-  }
-  .mobile-menu-links li {
-    border-bottom: 1px solid var(--border);
-  }
-  .mobile-menu-links a {
-    display: block; padding: 20px 24px;
-    font-family: var(--font-mono); font-size: 12px;
-    letter-spacing: 3px; text-transform: uppercase;
-    color: var(--text-dim); text-decoration: none;
-    transition: color 0.2s, background 0.2s;
-  }
-  .mobile-menu-links a:hover,
-  .mobile-menu-links a.active { color: var(--mint); background: var(--mint-dim); }
-  .mobile-menu-cta {
-    padding: 20px 24px;
-  }
-  .mobile-menu-cta a {
-    display: block; text-align: center;
-    font-family: var(--font-mono); font-size: 11px;
-    letter-spacing: 2px; text-transform: uppercase;
-    color: var(--bg); background: var(--mint);
-    padding: 14px; text-decoration: none;
-    transition: opacity 0.2s;
-  }
-  .mobile-menu-cta a:hover { opacity: 0.85; }
+  .footer-saas { padding: 16px 48px; border-top: 1px solid var(--border); background: var(--bg2); font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.5px; color: var(--text-muted); line-height: 1.7; text-align: center; }
+  .footer-saas span { color: var(--mint); }
 
   @media (max-width: 900px) {
     nav { padding: 0 24px; }
     .nav-links { display: none; }
     .nav-cta { display: none; }
     .hamburger { display: flex; }
-    /* Logo stays centered via absolute positioning — no change needed */
     .mobile-menu { display: block; }
-    .page-hero { padding: 100px 24px 60px; }
+    .saas-banner { padding: 10px 24px; }
+    .page-hero { padding: 60px 24px 48px; }
     .faq-layout { grid-template-columns: 1fr; }
     .faq-nav { display: none; }
     .faq-content { padding: 32px 24px; }
     .contact-band { padding: 60px 24px; flex-direction: column; align-items: flex-start; }
-    footer { flex-direction: column; gap: 12px; padding: 24px; }
+    .footer-main { flex-direction: column; gap: 12px; padding: 24px; }
+    .footer-saas { padding: 16px 24px; }
   }
 </style>
 </head>
@@ -250,7 +123,7 @@
     <li><a href="/mat8-site/index.html">Home</a></li>
     <li><a href="/mat8-site/strategy.html">Strategy</a></li>
     <li><a href="/mat8-site/performance.html">Performance</a></li>
-    <li><a href="/mat8-site/faq.html"  class="active">FAQ</a></li>
+    <li><a href="/mat8-site/faq.html" class="active">FAQ</a></li>
   </ul>
   <a href="/mat8-site/performance.html" class="nav-cta">View Performance</a>
 </nav>
@@ -259,10 +132,14 @@
     <li><a href="/mat8-site/index.html">Home</a></li>
     <li><a href="/mat8-site/strategy.html">Strategy</a></li>
     <li><a href="/mat8-site/performance.html">Performance</a></li>
-    <li><a href="/mat8-site/faq.html"  class="active">FAQ</a></li>
+    <li><a href="/mat8-site/faq.html" class="active">FAQ</a></li>
   </ul>
-  <div class="mobile-menu-cta">
-    <a href="/mat8-site/performance.html">View Performance</a>
+  <div class="mobile-menu-cta"><a href="/mat8-site/performance.html">View Performance</a></div>
+</div>
+
+<div class="saas-banner">
+  <div class="saas-banner-text">
+    MAT8 is a <span>Software-as-a-Service (SaaS) provider</span> — algorithmic trading software only. Not financial advice.
   </div>
 </div>
 
@@ -278,7 +155,7 @@
   <div class="faq-nav">
     <div class="faq-nav-label">Jump To</div>
     <div class="faq-nav-items">
-      <div class="faq-nav-item active" onclick="scrollTo('general')">General</div>
+      <div class="faq-nav-item active" onclick="scrollTo('saas')">About MAT8</div>
       <div class="faq-nav-item" onclick="scrollTo('account')">Account Setup</div>
       <div class="faq-nav-item" onclick="scrollTo('risk')">Risk & Returns</div>
       <div class="faq-nav-item" onclick="scrollTo('fees')">Fees & Costs</div>
@@ -288,8 +165,9 @@
 
   <div class="faq-content">
 
-    <div class="faq-section" id="general">
-      <div class="faq-section-title">GENERAL</div>
+    <!-- ABOUT MAT8 / SAAS -->
+    <div class="faq-section" id="saas">
+      <div class="faq-section-title">ABOUT MAT8</div>
 
       <div class="faq-item open">
         <div class="faq-question" onclick="toggle(this)">
@@ -297,34 +175,35 @@
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>MAT8 is a proprietary algorithmic trading system that trades TQQQ (3x leveraged Nasdaq-100 ETF) using a momentum strategy with a multi-layer volatility protection system.</p>
-          <p>The algorithm runs on QuantConnect's cloud infrastructure and executes trades directly in your Interactive Brokers account — fully automated, no human discretion involved.</p>
+          <p>MAT8 is a <strong>Software-as-a-Service (SaaS) business</strong> that develops and deploys proprietary algorithmic trading software. We are a technology provider — not a fund, not a financial advisor, and not an investment manager.</p>
+          <p>Our software runs on institutional-grade cloud infrastructure and executes automated trades directly in your own Interactive Brokers account based on systematic signals.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">Is MAT8 a fund? Am I giving you my money?</span>
+          <span class="faq-question-text">Does MAT8 provide financial advice?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>No. MAT8 is not a fund. Your money stays in <strong>your own IBKR account</strong> at all times. We never hold, touch, or custody your funds.</p>
-          <p>We operate as an authorised trading advisor on your account — we can place trades but cannot withdraw funds. You retain full control and can revoke access or withdraw at any time.</p>
+          <p><strong>No.</strong> MAT8 does not provide financial advice, investment recommendations, or portfolio management services. We provide software only.</p>
+          <p>Deploying algorithmic trading software involves substantial financial risk. We strongly recommend consulting a licensed financial advisor before using any trading software, including MAT8.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">What markets and instruments does MAT8 trade?</span>
+          <span class="faq-question-text">Is MAT8 licensed or regulated?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>The primary instrument is <span class="highlight">TQQQ</span> — the ProShares UltraPro QQQ, a 3x leveraged Nasdaq-100 ETF listed on NASDAQ.</p>
-          <p>Supporting instruments used for signal generation (not necessarily held): <span class="highlight">GLD</span> (gold ETF), <span class="highlight">VIXY</span> (VIX short-term futures ETF), and <span class="highlight">TLT</span> (20+ year Treasury bond ETF).</p>
+          <p>MAT8 operates as a SaaS software provider. We do not hold a Capital Markets Services (CMS) licence or any financial advisory licence, as we do not manage client funds or provide regulated financial services.</p>
+          <p>All trading activity occurs within your own Interactive Brokers account. You are the account holder and the decision-maker. MAT8 provides only the software tool.</p>
         </div>
       </div>
     </div>
 
+    <!-- ACCOUNT SETUP -->
     <div class="faq-section" id="account">
       <div class="faq-section-title">ACCOUNT SETUP</div>
 
@@ -334,127 +213,139 @@
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>You need an Interactive Brokers account with access to US equities. Individual or corporate accounts both work. The account must be funded and approved for trading leveraged ETFs.</p>
-          <p>Minimum recommended capital: USD 10,000. The algorithm is most effective at larger account sizes where IBKR commissions represent a smaller fraction of position sizes.</p>
+          <p>You need an Interactive Brokers account funded and approved for trading US equity ETFs. Individual or corporate accounts both work.</p>
+          <p>A minimum capital level is recommended to ensure trading commissions remain a small proportion of position sizes. Contact us for specific guidance.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">How do you access my IBKR account?</span>
+          <span class="faq-question-text">How does the software access my IBKR account?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>You grant MAT8 access as a <strong>Third-Party Advisor</strong> via IBKR's Advisor platform. This gives trade-execution-only access — we cannot withdraw funds, change account settings, or access statements.</p>
-          <p>You can revoke this access at any time through your IBKR Client Portal in under 60 seconds.</p>
+          <p>You grant MAT8 software access as a <strong>Third-Party Operator</strong> via IBKR's platform. This grants trade-execution access only — the software cannot withdraw funds, transfer money, or alter account settings.</p>
+          <p>You can revoke this access at any time through your IBKR Client Portal in under 60 seconds. Full custody of your funds remains with you at all times.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">Can I use an existing IBKR account or do I need a new one?</span>
+          <span class="faq-question-text">Can I use an existing IBKR account?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>Either works. If you have an existing IBKR account, we can set up a sub-account dedicated to MAT8 so your existing holdings and strategies remain completely separate.</p>
-          <p>If you don't have an IBKR account yet, opening one is straightforward — we provide a complete setup guide as part of onboarding.</p>
+          <p>Yes. We recommend setting up a dedicated sub-account within your existing IBKR structure so the MAT8 software operates in an isolated account, fully separate from your other holdings and strategies.</p>
+          <p>A complete onboarding guide is provided when you sign up.</p>
         </div>
       </div>
     </div>
 
+    <!-- RISK & RETURNS -->
     <div class="faq-section" id="risk">
       <div class="faq-section-title">RISK & RETURNS</div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">What is the maximum drawdown I should expect?</span>
+          <span class="faq-question-text">What markets does the software trade?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>Based on backtesting and live performance, the maximum drawdown has been approximately 18–22%. This is significantly lower than holding TQQQ directly (which has experienced drawdowns of 80%+).</p>
-          <p>The VIXY-based protection layers are specifically designed to exit positions before major drawdown events accelerate. However, no algorithm can guarantee protection against sudden gap-down opens or flash crashes.</p>
+          <p>The software trades US-listed equity ETFs on major exchanges. The specific instruments used are not publicly disclosed to protect the integrity of the strategy.</p>
+          <p>You will see all trades placed in your IBKR account in real time and can review your full transaction history at any time through IBKR's platform.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">Are the returns audited or verified?</span>
+          <span class="faq-question-text">What is the risk level of this software?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>Performance data on this site is pulled directly from IBKR via the Flex Query API — it represents actual account data, not backtested or hypothetical results.</p>
-          <p>The data pipeline: IBKR account → Flex Query API → GitHub Actions (weekly) → performance dashboard. No manual data entry.</p>
+          <p>The software trades leveraged instruments, which involve <strong>substantially higher risk</strong> than standard equity investing. Losses can be significant and can occur rapidly.</p>
+          <p>The software includes multiple automated protection layers designed to reduce drawdown during adverse market conditions — but no system can guarantee protection against all scenarios, including sudden market dislocations or gap-down opens.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">What happens during a major market crash?</span>
+          <span class="faq-question-text">Is the performance data on the Performance page real?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>The VIXY fear detection system is designed to identify elevated volatility regimes and exit positions. During events like March 2020 and late 2022, the system would have detected the VIXY spike and reduced or exited TQQQ exposure.</p>
-          <p>That said, no system is perfect — a sudden overnight gap-down (e.g. circuit breaker events) could still result in losses before the algorithm can respond at market open.</p>
+          <p>Yes. The performance charts on this site are pulled directly from Interactive Brokers via the IBKR Flex Query API — they reflect actual live trading in real accounts, not backtests or hypothetical simulations.</p>
+          <p>The data pipeline runs automatically every day: <span class="hl">IBKR Account</span> → <span class="hl">Flex Query API</span> → <span class="hl">Automated Sync</span> → <span class="hl">Live Dashboard</span>. No manual data entry involved.</p>
         </div>
       </div>
     </div>
 
+    <!-- FEES -->
     <div class="faq-section" id="fees">
       <div class="faq-section-title">FEES & COSTS</div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">What are the fees for using MAT8?</span>
+          <span class="faq-question-text">How is MAT8 priced?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>MAT8 charges a monthly management fee based on account size. Specific fee schedules are provided during the onboarding consultation.</p>
-          <p>In addition, you will incur IBKR's standard trading commissions (typically USD 0.005 per share for US equities, subject to IBKR's pricing) and any exchange/regulatory fees on executed trades.</p>
+          <p>MAT8 charges a <strong>monthly software subscription fee</strong> based on account size. There are no performance fees, no profit-sharing arrangements, and no fund management fees — it is a straightforward software licence.</p>
+          <p>Specific pricing is provided during onboarding consultation. Contact us to discuss.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">Are there margin or financing costs?</span>
+          <span class="faq-question-text">What other costs will I incur?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>TQQQ is purchased as a cash equity — no margin borrowing is required by the algorithm itself. The 3x leverage is embedded within the ETF structure by ProShares, not applied at the account level.</p>
-          <p>If your IBKR account uses margin for other purposes, margin interest from those activities would be separate and not related to MAT8's trading.</p>
+          <p>In addition to the MAT8 software fee, you will incur Interactive Brokers' standard trading commissions on each trade executed by the software. IBKR also charges exchange fees and regulatory fees on US equity trades.</p>
+          <p>All IBKR fees are transparent and visible in your account statements. The performance dashboard on this site reflects returns net of all IBKR transaction costs.</p>
         </div>
       </div>
     </div>
 
+    <!-- TECHNICAL -->
     <div class="faq-section" id="technical">
       <div class="faq-section-title">TECHNICAL</div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">What happens if the internet goes down or QuantConnect has an outage?</span>
+          <span class="faq-question-text">What happens if there is a platform outage?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>QuantConnect's cloud infrastructure runs with high availability. In the event of an outage, open positions remain in your IBKR account unchanged — no automatic liquidation occurs.</p>
-          <p>IBKR itself has its own risk management systems that will protect your account from extreme adverse moves even during platform outages.</p>
+          <p>The software runs on QuantConnect's institutional cloud infrastructure with high availability. In the event of an outage, open positions remain unchanged in your IBKR account — no automatic liquidation occurs.</p>
+          <p>IBKR has its own independent risk management systems that protect accounts from extreme adverse moves regardless of third-party software status.</p>
         </div>
       </div>
 
       <div class="faq-item">
         <div class="faq-question" onclick="toggle(this)">
-          <span class="faq-question-text">How is my performance data kept up to date?</span>
+          <span class="faq-question-text">How does the performance dashboard update automatically?</span>
           <span class="faq-toggle">+</span>
         </div>
         <div class="faq-answer">
-          <p>Every Monday at 9AM SGT, a GitHub Actions workflow automatically calls the IBKR Flex Query API, fetches the latest account data, and updates the performance dashboard JSON file.</p>
-          <p>The pipeline is: <span class="highlight">IBKR Flex API</span> → <span class="highlight">Python sync script</span> → <span class="highlight">GitHub Actions</span> → <span class="highlight">GitHub Pages</span> → <span class="highlight">this dashboard</span>. Fully automated with no manual steps.</p>
+          <p>Every day, an automated workflow calls the IBKR Flex Query API, fetches the latest account performance data, and publishes it to the live dashboard. The full pipeline is: <span class="hl">IBKR API</span> → <span class="hl">Sync Script</span> → <span class="hl">GitHub Actions</span> → <span class="hl">Live Dashboard</span>.</p>
+          <p>The process is fully automated with no manual steps involved. Both strategy dashboards run independent pipelines.</p>
         </div>
       </div>
 
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggle(this)">
+          <span class="faq-question-text">Can I stop the software at any time?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes, at any time. You can revoke the software's access to your IBKR account instantly through your IBKR Client Portal. You can also close any open positions manually through IBKR at any time — you have full control of your account independently of the software.</p>
+        </div>
+      </div>
     </div>
+
   </div>
 </div>
 
-<!-- CONTACT BAND -->
 <div class="contact-band">
   <div>
     <h2>STILL HAVE <span>QUESTIONS?</span></h2>
@@ -464,34 +355,30 @@
 </div>
 
 <footer>
-  <div class="footer-logo">MAT<span>8</span></div>
-  <div class="footer-note">© 2025 MAT8 Algorithmic Trading · Singapore · Past performance does not guarantee future results</div>
+  <div class="footer-main">
+    <div class="footer-logo">MAT<span>8</span></div>
+    <div class="footer-note">© 2025 MAT8 Algorithmic Trading Software · Singapore</div>
+  </div>
+  <div class="footer-saas">
+    <span>SAAS DISCLOSURE:</span> MAT8 provides algorithmic trading software only. We do not manage client funds, provide financial advice, or operate as a licensed investment advisor or fund manager. Trading involves substantial risk of loss. Past software performance does not guarantee future results.
+  </div>
 </footer>
 
 <script>
   function toggle(el) {
     const item = el.parentElement;
-    const allItems = document.querySelectorAll('.faq-item');
-    allItems.forEach(i => { if (i !== item) i.classList.remove('open'); });
+    document.querySelectorAll('.faq-item').forEach(i => { if (i !== item) i.classList.remove('open'); });
     item.classList.toggle('open');
   }
-
   function scrollTo(id) {
     document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
     document.querySelectorAll('.faq-nav-item').forEach(el => el.classList.remove('active'));
     event.target.classList.add('active');
   }
-</script>
-
-
-<script>
   function toggleMenu() {
-    const btn = document.getElementById('hamburger');
-    const menu = document.getElementById('mobile-menu');
-    btn.classList.toggle('open');
-    menu.classList.toggle('open');
+    document.getElementById('hamburger').classList.toggle('open');
+    document.getElementById('mobile-menu').classList.toggle('open');
   }
-  // Close menu when a link is clicked
   document.querySelectorAll('.mobile-menu-links a').forEach(a => {
     a.addEventListener('click', () => {
       document.getElementById('hamburger').classList.remove('open');
